@@ -1,0 +1,6 @@
+{
+  "name": "Hệ thống Quản lý Tri thức TERASU",
+  "description": "Hệ thống quản trị tri thức doanh nghiệp (EKMS) tích hợp quản lý quy trình, SOP, tài khoản hệ thống, chương trình đào tạo và tìm kiếm thông minh dành cho TERASU.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
