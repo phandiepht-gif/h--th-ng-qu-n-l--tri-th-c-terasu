@@ -14,6 +14,7 @@ import { RoleSelector } from './components/RoleSelector';
 import { Dashboard } from './components/Dashboard';
 import { AISearch } from './components/AISearch';
 import { KnowledgeCenter } from './components/KnowledgeCenter';
+import BulkUpload from './components/BulkUpload';
 import { DepartmentManager } from './components/DepartmentManager';
 import { AccountManager } from './components/AccountManager';
 import { WorkflowManager } from './components/WorkflowManager';
@@ -190,15 +191,6 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
           <span>📁</span>
           <span>Import / Tạo tài liệu</span>
         </button>
-        <button
-  onClick={signOut}
-  className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold rounded-lg transition-all flex items-center gap-1.5"
-  title="Đăng xuất"
->
-  <LogOut className="w-3.5 h-3.5" />
-  <span>Đăng xuất</span>
-</button>
-
 
         {/* Right Side: Role & Identity Access selector */}
         <div className="flex items-center gap-3">
@@ -401,17 +393,15 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
             )}
 
             {activeTab === 'knowledge' && (
-              <>
-              <KnowledgeCenter
+              <KnowledgeCenter 
                 currentRole={currentRole}
+                documents={documents}
                 onAddDocument={handleAddDocument}
                 onDeleteDocument={handleDeleteDocument}
                 onViewDocDetails={handleViewDocDetails}
                 selectedCategoryPath={selectedCategoryPath}
                 onSetCategoryPath={setSelectedCategoryPath}
               />
-              <BulkUpload currentRole={currentRole} />
-            </>
             )}
 
             {activeTab === 'departments' && (
