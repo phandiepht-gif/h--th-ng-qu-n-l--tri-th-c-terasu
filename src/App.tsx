@@ -401,9 +401,9 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
             )}
 
             {activeTab === 'knowledge' && (
-              <KnowledgeCenter 
+              <>
+              <KnowledgeCenter
                 currentRole={currentRole}
-                documents={documents}
                 onAddDocument={handleAddDocument}
                 onDeleteDocument={handleDeleteDocument}
                 onViewDocDetails={handleViewDocDetails}
@@ -411,6 +411,7 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
                 onSetCategoryPath={setSelectedCategoryPath}
               />
               <BulkUpload currentRole={currentRole} />
+            </>
             )}
 
             {activeTab === 'departments' && (
