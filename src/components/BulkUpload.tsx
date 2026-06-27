@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 import { uploadFile } from '../lib/storage'
 import { useFolders } from '../hooks/useFolders'
@@ -68,7 +68,6 @@ export default function BulkUpload({ currentRole }: { currentRole: string }) {
           file_url: url,
           file_name: files[i].file.name,
           file_size: files[i].file.size,
-          created_by: currentRole,
         })
         if (error) throw error
         updateFile(i, { status: 'done', progress: 100 })
