@@ -66,8 +66,7 @@ export default function BulkUpload({ currentRole }: { currentRole: string }) {
           doc_type: files[i].docType,
           tags: files[i].tags.split(',').map(t => t.trim()).filter(Boolean),
           file_url: url,
-          file_name: files[i].file.name,
-          file_size: files[i].file.size,
+          file_size_kb: Math.round(files[i].file.size / 1024),
         })
         if (error) throw error
         updateFile(i, { status: 'done', progress: 100 })
