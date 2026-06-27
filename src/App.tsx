@@ -410,6 +410,7 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
                 selectedCategoryPath={selectedCategoryPath}
                 onSetCategoryPath={setSelectedCategoryPath}
               />
+              <BulkUpload currentRole={currentRole} />
             )}
 
             {activeTab === 'departments' && (
