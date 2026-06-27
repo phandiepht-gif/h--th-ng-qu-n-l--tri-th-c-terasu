@@ -10,6 +10,7 @@ import {
   Folder, FolderOpen, FileText, ChevronRight, ChevronDown, Check,
   Plus, Upload, Shield, Tag, Info, Trash2, Edit3, X, Eye, EyeOff
 } from 'lucide-react';
+import BulkUpload from './BulkUpload';
 
 interface KnowledgeCenterProps {
   currentRole: Role;
@@ -766,6 +767,7 @@ export function KnowledgeCenter({
         </div>
       )}
 
+      <BulkUpload currentRole={currentRole} />
     </div>
   );
 }
