@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 import { uploadFile } from '../lib/storage'
 import { useFolders } from '../hooks/useFolders'
@@ -14,19 +14,19 @@ interface FileItem {
   error?: string
 }
 
-export function BulkUpload() {
+export function BulkUpload({ currentRole }: { currentRole: string }) {
   const { folders } = useFolders()
   const [files, setFiles] = useState<FileItem[]>([])
   const [uploading, setUploading] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const docTypes = [
-    { value: 'SOP_QUY_TRINH', label: 'SOP / Quy trình' },
-    { value: 'BAO_GIA_HOP_DONG', label: 'Báo giá / Hợp đồng' },
-    { value: 'TAI_LIEU_DAO_TAO', label: 'Tài liệu đào tạo' },
-    { value: 'HO_SO_PHAP_LY', label: 'Hồ sơ pháp lý' },
-    { value: 'ANH_KY_THUAT', label: 'Hình ảnh / QC' },
-    { value: 'BIEN_MAU', label: 'Biểu mẫu' }
+    { value: 'SOP_QUY_TRINH', label: 'SOP / Quy tr�nh' },
+    { value: 'BAO_GIA_HOP_DONG', label: 'B�o gi� / H?p d?ng' },
+    { value: 'TAI_LIEU_DAO_TAO', label: 'T�i li?u d�o t?o' },
+    { value: 'HO_SO_PHAP_LY', label: 'H? so ph�p l�' },
+    { value: 'ANH_KY_THUAT', label: 'H�nh ?nh / QC' },
+    { value: 'BIEN_MAU', label: 'Bi?u m?u' }
   ]
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +60,7 @@ export function BulkUpload() {
         const f = files[i]
         const fileUrl = await uploadFile(f.file, f.folderId || 'general')
         updateFile(i, { progress: 60 })
-        if (!fileUrl) { updateFile(i, { status: 'error', error: 'Upload file thất bại' }); continue }
+        if (!fileUrl) { updateFile(i, { status: 'error', error: 'Upload file th?t b?i' }); continue }
         const { error } = await supabase.from('documents').insert([{
           title: f.title,
           doc_type: f.docType,
@@ -76,7 +76,7 @@ export function BulkUpload() {
         if (error) { updateFile(i, { status: 'error', error: error.message }); continue }
         updateFile(i, { status: 'done', progress: 100 })
       } catch (err) {
-        updateFile(i, { status: 'error', error: 'Lỗi không xác định' })
+        updateFile(i, { status: 'error', error: 'L?i kh�ng x�c d?nh' })
       }
     }
     setUploading(false)
@@ -84,12 +84,12 @@ export function BulkUpload() {
 
   const getFileIcon = (name: string) => {
     const ext = name.split('.').pop()?.toLowerCase()
-    if (['pdf'].includes(ext || '')) return '📄'
-    if (['doc', 'docx'].includes(ext || '')) return '📝'
-    if (['xls', 'xlsx'].includes(ext || '')) return '📊'
-    if (['png', 'jpg', 'jpeg', 'gif'].includes(ext || '')) return '🖼️'
-    if (['mp4', 'avi', 'mov'].includes(ext || '')) return '🎬'
-    return '📎'
+    if (['pdf'].includes(ext || '')) return '??'
+    if (['doc', 'docx'].includes(ext || '')) return '??'
+    if (['xls', 'xlsx'].includes(ext || '')) return '??'
+    if (['png', 'jpg', 'jpeg', 'gif'].includes(ext || '')) return '???'
+    if (['mp4', 'avi', 'mov'].includes(ext || '')) return '??'
+    return '??'
   }
 
   const pendingCount = files.filter(f => f.status === 'pending').length
@@ -100,13 +100,13 @@ export function BulkUpload() {
       <div className="flex items-center justify-between border-b pb-3">
         <div>
           <h3 className="font-bold text-slate-800 text-sm flex items-center gap-2">
-            📦 Bulk Upload Tài liệu
+            ?? Bulk Upload T�i li?u
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">Upload nhiều file cùng lúc vào hệ thống</p>
+          <p className="text-xs text-slate-500 mt-0.5">Upload nhi?u file c�ng l�c v�o h? th?ng</p>
         </div>
         {files.length > 0 && (
           <div className="text-xs text-slate-500">
-            {doneCount}/{files.length} hoàn thành
+            {doneCount}/{files.length} ho�n th�nh
           </div>
         )}
       </div>
@@ -115,9 +115,9 @@ export function BulkUpload() {
         onClick={() => inputRef.current?.click()}
         className="border-2 border-dashed border-slate-200 rounded-xl p-8 text-center cursor-pointer hover:border-orange-400 hover:bg-orange-50 transition-colors"
       >
-        <div className="text-3xl mb-2">📁</div>
-        <p className="text-sm font-semibold text-slate-600">Click để chọn file</p>
-        <p className="text-xs text-slate-400 mt-1">PDF, Word, Excel, ảnh, video — không giới hạn số lượng</p>
+        <div className="text-3xl mb-2">??</div>
+        <p className="text-sm font-semibold text-slate-600">Click d? ch?n file</p>
+        <p className="text-xs text-slate-400 mt-1">PDF, Word, Excel, ?nh, video � kh�ng gi?i h?n s? lu?ng</p>
         <input
           ref={inputRef}
           type="file"
@@ -137,10 +137,10 @@ export function BulkUpload() {
                 <span className="text-slate-500 truncate flex-1">{f.file.name}</span>
                 <span className="text-slate-400">{Math.round(f.file.size/1024)}KB</span>
                 {f.status === 'pending' && (
-                  <button onClick={() => removeFile(i)} className="text-red-400 hover:text-red-600 font-bold">✕</button>
+                  <button onClick={() => removeFile(i)} className="text-red-400 hover:text-red-600 font-bold">?</button>
                 )}
-                {f.status === 'done' && <span className="text-emerald-600 font-bold">✓</span>}
-                {f.status === 'error' && <span className="text-red-600 font-bold">✕</span>}
+                {f.status === 'done' && <span className="text-emerald-600 font-bold">?</span>}
+                {f.status === 'error' && <span className="text-red-600 font-bold">?</span>}
               </div>
 
               {f.status === 'pending' && (
@@ -148,7 +148,7 @@ export function BulkUpload() {
                   <input
                     value={f.title}
                     onChange={e => updateFile(i, { title: e.target.value })}
-                    placeholder="Tên tài liệu"
+                    placeholder="T�n t�i li?u"
                     className="col-span-2 border border-slate-200 rounded px-2 py-1 text-xs focus:outline-none focus:border-orange-400"
                   />
                   <select
@@ -198,13 +198,13 @@ export function BulkUpload() {
           disabled={uploading}
           className="w-full bg-orange-600 hover:bg-orange-700 disabled:opacity-50 text-white font-bold text-sm py-2.5 rounded-lg transition-colors"
         >
-          {uploading ? 'Đang upload...' : Upload  file lên hệ thống}
+          {uploading ? '�ang upload...' : Upload  file l�n h? th?ng}
         </button>
       )}
 
       {doneCount === files.length && files.length > 0 && !uploading && (
         <div className="text-center text-emerald-600 font-bold text-sm py-2">
-          ✅ Tất cả {doneCount} file đã upload thành công!
+          ? T?t c? {doneCount} file d� upload th�nh c�ng!
         </div>
       )}
     </div>
