@@ -218,7 +218,9 @@ export function DocumentImportModal({
     };
 
     onAddDocument(newDoc);
-    onAddAuditLog('Import / Khởi tạo Tài liệu', `${docCode} - ${docName} (v${docVersion})`, 'Thành công');
+    onAddAuditLog('Import / Khởi tạo Tài liệu', `${docCode} - ${docName} (v${docVersion})`, 'Thành công');import('../lib/documentService').then(({ saveDocumentToSupabase }) => {
+  saveDocumentToSupabase({ title: docName, code: docCode, docType: docType, version: docVersion, tags: docTags.split(',').map(t => t.trim()).filter(Boolean), isPublic: docSecurity === 'Public', description: docSummary })
+})
     
     // Reset forms and notify
     alert(`Đã lưu thành công tài liệu: ${docCode} vào thư mục ${docPath}! Toàn bộ hệ thống và Trợ lý AI đã được đồng bộ hóa.`);
@@ -241,6 +243,7 @@ export function DocumentImportModal({
     onAddAuditLog('Tạo Thư mục Tri thức', `Thư mục mới: ${createdPath}`, 'Thành công');
     alert(`Đã tạo thành công thư mục mới: "${newFolderName}" tại đường dẫn "${newFolderParent}". Hệ thống quản lý tri thức đã cập nhật.`);
     setNewFolderName('');
+    
   };
 
   // Trigger sync simulation

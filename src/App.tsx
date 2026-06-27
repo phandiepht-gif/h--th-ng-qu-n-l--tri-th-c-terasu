@@ -4,6 +4,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { LoginPage } from './components/LoginPage'
+import { useAuth } from './hooks/useAuth'
 import { Role, Document, AuditLog, WorkflowTicket } from './types';
 import { INITIAL_DOCUMENTS, INITIAL_AUDIT_LOGS } from './data/mockData';
 
@@ -28,10 +30,12 @@ import {
 
 export default function App() {
   const [currentRole, setCurrentRole] = useState<Role>('CEO');
+  const { user, loading: authLoading, signOut } = useAuth()
+
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [documents, setDocuments] = useState<Document[]>(INITIAL_DOCUMENTS);
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>(INITIAL_AUDIT_LOGS);
-  
+
   // Selected category path when jumping from shortcuts
   const [selectedCategoryPath, setSelectedCategoryPath] = useState<string>('TERASU');
 
@@ -130,6 +134,12 @@ export default function App() {
     return menuItems.find(item => item.id === activeTab)?.name || 'Hệ thống';
   };
 
+ if (authLoading) return (
+  <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+    <span className="text-slate-400 text-sm">Đang tải...</span>
+  </div>
+)
+if (!user) return <LoginPage onLoginSuccess={() => {}} />
   return (
     <div className="min-h-screen bg-slate-50 font-sans flex flex-col antialiased text-slate-800" id="master-terasu-ekms">
       
@@ -180,6 +190,15 @@ export default function App() {
           <span>📁</span>
           <span>Import / Tạo tài liệu</span>
         </button>
+        <button
+  onClick={signOut}
+  className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold rounded-lg transition-all flex items-center gap-1.5"
+  title="Đăng xuất"
+>
+  <LogOut className="w-3.5 h-3.5" />
+  <span>Đăng xuất</span>
+</button>
+
 
         {/* Right Side: Role & Identity Access selector */}
         <div className="flex items-center gap-3">
@@ -188,7 +207,7 @@ export default function App() {
           <div className="hidden sm:flex flex-col text-right leading-none">
             <span className="text-[10px] text-slate-400 font-semibold">Vai trò phân quyền:</span>
             <span className="text-[11px] text-slate-800 font-extrabold mt-0.5 uppercase tracking-wide">
-              {currentRole === 'CEO' ? 'Nguyễn Văn Terasu (CEO)' : `Bộ phận: ${currentRole}`}
+           {user?.email || 'Đang tải...'}
             </span>
           </div>
 
