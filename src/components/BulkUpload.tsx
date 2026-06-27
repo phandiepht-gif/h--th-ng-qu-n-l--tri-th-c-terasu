@@ -14,7 +14,7 @@ interface FileItem {
   error?: string
 }
 
-export function BulkUpload({ currentRole }: { currentRole: string }) {
+export default function BulkUpload({ currentRole }: { currentRole: string }) {
   const { folders } = useFolders()
   const [files, setFiles] = useState<FileItem[]>([])
   const [uploading, setUploading] = useState(false)
