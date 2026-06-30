@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { Role, AuditLog } from '../types';
 import { 
   Shield, Users, Mail, Phone, Building, Briefcase, MapPin, 
@@ -6,6 +6,7 @@ import {
   Save, Plus, Trash2, Edit2, Search, Server, ShieldCheck, 
   Cpu, AlertCircle, Terminal, Download, FileCode, CheckCircle2, X
 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 interface SystemAdminProps {
   currentRole: Role;
@@ -133,6 +134,29 @@ export function SystemAdmin({ currentRole, auditLogs, onAddAuditLog }: SystemAdm
 
   // Interactive local states (to allow actual edits and additions)
   const [users, setUsers] = useState(INITIAL_USERS);
+
+  // Nạp dữ liệu người dùng thật từ Supabase (bảng profiles)
+  React.useEffect(() => {
+    async function loadRealUsers() {
+      const { data, error } = await supabase.from('profiles').select('*');
+      if (error) { console.error('Lỗi tải profiles:', error.message); return; }
+      if (data && data.length > 0) {
+        const mapped = data.map((p: any) => ({
+          id: p.id,
+          fullname: p.full_name || '(Chưa đặt tên)',
+          email: '(Xem trong Supabase Auth)',
+          phone: p.phone || '-',
+          department: p.department || '-',
+          position: p.role || '-',
+          branch: '-',
+          role: p.role || 'EMPLOYEE',
+          status: p.is_active ? 'Active' : 'Suspended'
+        }));
+        setUsers(mapped);
+      }
+    }
+    loadRealUsers();
+  }, []);
   const [emails, setEmails] = useState(INITIAL_EMAILS);
   const [phones, setPhones] = useState(INITIAL_PHONES);
   const [departments, setDepartments] = useState(INITIAL_DEPARTMENTS);
