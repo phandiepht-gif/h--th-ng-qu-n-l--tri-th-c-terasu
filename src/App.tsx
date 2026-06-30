@@ -643,7 +643,7 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
                       try {
                         new URL(previewDoc.contentSummary);
                         return (
-                          
+<a                          
                             href={previewDoc.contentSummary}
                             target="_blank"
                             rel="noopener noreferrer"
