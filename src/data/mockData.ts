@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -66,7 +66,7 @@ export const DIRECTORY_TREE: FolderNode = {
       name: '06. MUA HÀNG',
       path: 'TERASU/06. MUA HÀNG',
       children: [
-        { name: 'NCC Trung Quốc', path: 'TERASU/06. MUA HÀNG/NCC Trung Quốc' },
+        { name: 'NCC Nước Ngoài', path: 'TERASU/06. MUA HÀNG/NCC Nước Ngoài' },
         { name: 'NCC Việt Nam', path: 'TERASU/06. MUA HÀNG/NCC Việt Nam' },
         { name: 'HS Code', path: 'TERASU/06. MUA HÀNG/HS Code' },
         { name: 'Hợp đồng', path: 'TERASU/06. MUA HÀNG/Hợp đồng' },
@@ -135,7 +135,7 @@ export const INITIAL_DOCUMENTS: Document[] = [
     name: 'Quy trình mua hàng nước ngoài & nhập khẩu linh kiện',
     type: 'SOP/Quy trình',
     department: 'MUA HÀNG',
-    categoryPath: 'TERASU/06. MUA HÀNG/NCC Trung Quốc',
+    categoryPath: 'TERASU/06. MUA HÀNG/NCC Nước Ngoài',
     creator: 'Trần Minh Quang (Trưởng Phòng Purchase)',
     approver: 'Nguyễn Văn Terasu (CEO)',
     createdAt: '2026-01-10',
@@ -579,3 +579,5 @@ export const RACI_MATRIX = [
   { activity: 'Quản trị Fanpage & Kênh TikTok', r: 'Content Creator', a: 'Marketing Leader', c: 'Trưởng phòng Sales', i: 'Toàn hệ thống' },
   { activity: 'Cập nhật tài khoản dùng chung Canva, Zoom', r: 'Nhân viên Hành chính', a: 'Trưởng phòng Tech & Marketing', c: 'Chi phí duyệt kế toán', i: 'Nhân viên được cấp quyền' }
 ];
+
+

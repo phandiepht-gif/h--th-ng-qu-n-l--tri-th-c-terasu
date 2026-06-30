@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -64,7 +64,7 @@ export function KnowledgeCenter({
   const [newName, setNewName] = useState('');
   const [newType, setNewType] = useState<DocumentType>('SOP/Quy trình');
   const [newDept, setNewDept] = useState('MUA HÀNG');
-  const [newPath, setNewPath] = useState('TERASU/06. MUA HÀNG/NCC Trung Quốc');
+  const [newPath, setNewPath] = useState('TERASU/06. MUA HÀNG/NCC Nước Ngoài');
   const [newCreator, setNewCreator] = useState('Trần Minh Quang');
   const [newApprover, setNewApprover] = useState('Nguyễn Văn Terasu');
   const [newVersion, setNewVersion] = useState('1.0');
@@ -771,3 +771,5 @@ export function KnowledgeCenter({
     </div>
   );
 }
+
+

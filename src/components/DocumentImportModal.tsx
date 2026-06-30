@@ -43,7 +43,7 @@ export function DocumentImportModal({
   const [docCode, setDocCode] = useState('');
   const [docType, setDocType] = useState<DocumentType>('SOP/Quy trình');
   const [docDept, setDocDept] = useState('MUA HÀNG');
-  const [docPath, setDocPath] = useState('TERASU/06. MUA HÀNG/NCC Trung Quốc');
+  const [docPath, setDocPath] = useState('TERASU/06. MUA HÀNG/NCC Nước Ngoài');
   const [docOwner, setDocOwner] = useState('Trần Minh Quang');
   const [docVersion, setDocVersion] = useState('1.0');
   const [docVersionLog, setDocVersionLog] = useState('Khởi tạo tài liệu lần đầu');
@@ -664,7 +664,7 @@ Yêu cầu đối soát kỹ bản vẽ CAD của QC để xác định dung sai
                           <option value="TERASU/02. HCNS/KPI">TERASU/02. HCNS/KPI</option>
                           <option value="TERASU/04. KINH DOANH/Báo giá">TERASU/04. KINH DOANH/Báo giá</option>
                           <option value="TERASU/06. MUA HÀNG/HS Code">TERASU/06. MUA HÀNG/HS Code</option>
-                          <option value="TERASU/06. MUA HÀNG/NCC Trung Quốc">TERASU/06. MUA HÀNG/NCC Trung Quốc</option>
+                          <option value="TERASU/06. MUA HÀNG/NCC Nước Ngoài">TERASU/06. MUA HÀNG/NCC Nước Ngoài</option>
                           <option value="TERASU/07. KHO/SOP">TERASU/07. KHO/SOP</option>
                           <option value="TERASU/08. QC KỸ THUẬT/Bản vẽ">TERASU/08. QC KỸ THUẬT/Bản vẽ</option>
                           <option value="TERASU/09. DỊCH VỤ SỬA CHỮA/Bảo hành">TERASU/09. DỊCH VỤ SỬA CHỮA/Bảo hành</option>
@@ -1138,3 +1138,5 @@ Yêu cầu đối soát kỹ bản vẽ CAD của QC để xác định dung sai
     </div>
   );
 }
+
+
