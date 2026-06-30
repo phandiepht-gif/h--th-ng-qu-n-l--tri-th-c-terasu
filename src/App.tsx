@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -8,6 +8,7 @@ import { LoginPage } from './components/LoginPage'
 import { useAuth } from './hooks/useAuth'
 import { Role, Document, AuditLog, WorkflowTicket } from './types';
 import { INITIAL_DOCUMENTS, INITIAL_AUDIT_LOGS } from './data/mockData';
+import { supabase } from './lib/supabase';
 
 // Component imports
 import { RoleSelector } from './components/RoleSelector';
@@ -35,6 +36,40 @@ export default function App() {
 
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [documents, setDocuments] = useState<Document[]>(INITIAL_DOCUMENTS);
+
+  // Nạp tài liệu thật từ Supabase, gộp với danh sách mock
+  React.useEffect(() => {
+    async function loadRealDocuments() {
+      const { data, error } = await supabase
+        .from('documents')
+        .select('*, folders(name, code)')
+        .order('id', { ascending: false });
+      if (error) { console.error('Lỗi tải documents:', error.message); return; }
+      if (data && data.length > 0) {
+        const mapped: Document[] = data.map((d: any) => ({
+          id: String(d.id),
+          code: d.code || '(Chưa có mã)',
+          name: d.title,
+          type: (d.doc_type as any) || 'SOP/Quy trình',
+          department: d.folders?.name || '-',
+          categoryPath: d.folders?.name ? TERASU/+d.folders.name : 'TERASU',
+          creator: '-',
+          approver: '-',
+          createdAt: d.created_at ? String(d.created_at).substring(0,10) : '-',
+          updatedAt: d.created_at ? String(d.created_at).substring(0,10) : '-',
+          version: d.version || '1.0',
+          status: 'Ban hành',
+          tags: d.tags || [],
+          accessRights: ['CEO','DIRECTOR','HEAD','EMPLOYEE'] as any,
+          contentSummary: d.description || '',
+          fileUrl: d.file_url || undefined,
+          fileSize: d.file_size_kb ? +d.file_size_kb+ KB : undefined
+        }));
+        setDocuments(prev => [...mapped, ...prev]);
+      }
+    }
+    loadRealDocuments();
+  }, []);
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>(INITIAL_AUDIT_LOGS);
 
   // Selected category path when jumping from shortcuts
