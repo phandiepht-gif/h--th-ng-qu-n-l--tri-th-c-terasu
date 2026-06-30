@@ -728,7 +728,7 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
                 <div className="flex gap-2">
                   <button
                     onClick={() => {
-                      if (previewDoc && previewDoc.fileUrl) { window.open(previewDoc.fileUrl, '_blank'); } else { alert('Thao tác tải xuống mộc ký chữ ký điện tử PDF thành công! Hệ thống đã ghi nhận log.'); }
+                      if (previewDoc && previewDoc.fileUrl) { var ext = (previewDoc.fileUrl.split('.').pop() || '').toLowerCase(); if (ext === 'xlsx' || ext === 'xls' || ext === 'doc' || ext === 'docx' || ext === 'ppt' || ext === 'pptx') { window.open('https://view.officeapps.live.com/op/view.aspx?src=' + encodeURIComponent(previewDoc.fileUrl), '_blank'); } else { window.open(previewDoc.fileUrl, '_blank'); } } else { alert('Thao tác tải xuống mộc ký chữ ký điện tử PDF thành công! Hệ thống đã ghi nhận log.'); }
                     }}
                     className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition-colors cursor-pointer"
                   >
