@@ -63,7 +63,7 @@ export default function App() {
           accessRights: ['CEO','DIRECTOR','HEAD','EMPLOYEE'] as any,
           contentSummary: d.description || '',
           fileUrl: d.file_url || undefined,
-          fileSize: d.file_size_kb ? +d.file_size_kb+ KB : undefined
+          fileSize: d.file_size_kb ? (d.file_size_kb + ' KB') : undefined
         }));
         setDocuments(prev => [...mapped, ...prev]);
       }
