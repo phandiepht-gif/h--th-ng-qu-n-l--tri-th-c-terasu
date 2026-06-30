@@ -52,7 +52,7 @@ export default function App() {
           name: d.title,
           type: (d.doc_type as any) || 'SOP/Quy trình',
           department: d.folders?.name || '-',
-          categoryPath: d.folders?.name ? TERASU/+d.folders.name : 'TERASU',
+          categoryPath: (function() { var m = {'CHIEN_LUOC':'TERASU/01. CHIẾN LƯỢC','HCNS':'TERASU/02. HCNS','MARKETING':'TERASU/03. MARKETING','KINH_DOANH':'TERASU/04. KINH DOANH','KE_TOAN':'TERASU/05. KẾ TOÁN','MUA_HANG':'TERASU/06. MUA HÀNG','KHO_BAI':'TERASU/07. KHO','QC_KY_THUAT':'TERASU/08. QC KỸ THUẬT','DICH_VU_SUA_CHUA':'TERASU/09. DỊCH VỤ SỬA CHỮA','PHAP_LY':'TERASU/10. PHÁP LÝ','TAI_KHOAN':'TERASU/11. TÀI KHOẢN'}; var code = d.folders ? d.folders.code : null; return m[code] || 'TERASU'; })(),
           creator: '-',
           approver: '-',
           createdAt: d.created_at ? String(d.created_at).substring(0,10) : '-',
