@@ -637,9 +637,25 @@ if (!user) return <LoginPage onLoginSuccess={() => {}} />
               {/* Simulated File Contents Preview */}
               {previewDoc.contentSummary && (
                 <div className="space-y-1.5">
-                  <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Đọc thử nội dung (Giả lập OCR & Text Content):</h4>
+                  <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Nội dung / Liên kết tài liệu:</h4>
                   <div className="p-4 bg-slate-900 text-slate-350 rounded-xl font-mono text-xs border border-slate-800 leading-relaxed max-h-40 overflow-y-auto">
-                    {previewDoc.contentSummary}
+                    {(() => {
+                      try {
+                        new URL(previewDoc.contentSummary);
+                        return (
+                          
+                            href={previewDoc.contentSummary}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sky-400 underline hover:text-sky-300 break-all"
+                          >
+                            {previewDoc.contentSummary}
+                          </a>
+                        );
+                      } catch {
+                        return <span className="whitespace-pre-wrap">{previewDoc.contentSummary}</span>;
+                      }
+                    })()}
                   </div>
                 </div>
               )}
