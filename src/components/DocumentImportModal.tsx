@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -34,6 +34,7 @@ export function DocumentImportModal({
   // File Upload states
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<{ name: string; size: string; type: string }[]>([]);
+  const [rawFiles, setRawFiles] = useState<File[]>([]);
   const [isScanning, setIsScanning] = useState(false);
   const [scanResult, setScanResult] = useState<string | null>(null);
 
@@ -137,7 +138,8 @@ export function DocumentImportModal({
         type: f.name.split('.').pop() || 'unknown'
       }));
       setUploadedFiles(prev => [...prev, ...files]);
-      
+      setRawFiles(prev => [...prev, ...Array.from(e.dataTransfer.files)]);
+
       // Simulate automatic OCR if matched
       triggerOcrScan(files[0].name);
     }
@@ -151,6 +153,7 @@ export function DocumentImportModal({
         type: f.name.split('.').pop() || 'unknown'
       }));
       setUploadedFiles(prev => [...prev, ...files]);
+      setRawFiles(prev => [...prev, ...Array.from(e.target.files)]);
       triggerOcrScan(files[0].name);
     }
   };
@@ -219,7 +222,7 @@ export function DocumentImportModal({
 
     onAddDocument(newDoc);
     onAddAuditLog('Import / Khởi tạo Tài liệu', `${docCode} - ${docName} (v${docVersion})`, 'Thành công');import('../lib/documentService').then(({ saveDocumentToSupabase }) => {
-  saveDocumentToSupabase({ title: docName, code: docCode, docType: docType, version: docVersion, tags: docTags.split(',').map(t => t.trim()).filter(Boolean), isPublic: docSecurity === 'Public', description: docSummary })
+  saveDocumentToSupabase({ title: docName, code: docCode, docType: docType, version: docVersion, tags: docTags.split(',').map(t => t.trim()).filter(Boolean), isPublic: docSecurity === 'Public', description: docSummary, dept: docDept, file: rawFiles[0] || null })
 })
     
     // Reset forms and notify
@@ -227,6 +230,7 @@ export function DocumentImportModal({
     
     // Clean states
     setUploadedFiles([]);
+    setRawFiles([]);
     setScanResult(null);
     setDocName('');
     setDocCode('');
