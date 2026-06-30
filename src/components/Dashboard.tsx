@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -27,7 +27,7 @@ export function Dashboard({ currentRole, onSetTab, onViewDoc, onViewTicket }: Da
     switch (currentRole) {
       case 'CEO':
         return {
-          title: 'Tổng Giám Đốc Nguyễn Văn Terasu',
+          title: 'Tổng Giám Đốc Phan Điệp',
           personalKPI: '98%',
           deptKPI: '92% (Chỉ số Chuỗi đại lý)',
           personalKPIType: 'Hoàn thiện Chiến lược 2026',
